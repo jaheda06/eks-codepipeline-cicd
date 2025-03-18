@@ -11,7 +11,7 @@ phases:
     commands:
       - echo Build started on date
       - echo Building the Docker image...
-      - docker build -t ekscluster . .
+      - docker build -t ekscluster . 
       - docker tag ekscluster:latest 831926628412.dkr.ecr.ap-south-1.amazonaws.com/ekscluster:latest
   post_build:
     commands:
