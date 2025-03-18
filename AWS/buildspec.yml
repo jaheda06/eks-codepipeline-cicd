@@ -24,7 +24,7 @@ phases:
    
       - echo "Updating Kubernetes deployment..."
       - aws eks update-kubeconfig --region ap-south-1 --name my-eks-cluster
-      - sed -i "s|node.js|831926628412.dkr.ecr.ap-south-1.amazonaws.com/ekscluster:latest|g" deploy.yml
+      - sed -i "s|nginx|831926628412.dkr.ecr.ap-south-1.amazonaws.com/ekscluster:latest|g" deploy.yml
       - kubectl apply -f deploy.yml --validate=false
       - echo "Deployment successful!"
 
