@@ -19,7 +19,7 @@ phases:
       - echo Pushing the Docker images...
       - docker push 831926628412.dkr.ecr.ap-south-1.amazonaws.com/ekscluster:latest
       - echo Writing image definitions file...
-      - printf '[{"name":"%s","imageUri":"%s"}]' jaheda 831926628412.dkr.ecr.ap-south-1.amazonaws.com/ekscluster:latest > imagedefinitions.json
+      - printf '[{"name":"%s","imageUri":"%s"}]' jaheda $REPOSITORY_URI:latest > imagedefinitions.json
 
    
       - echo "Updating Kubernetes deployment..."
