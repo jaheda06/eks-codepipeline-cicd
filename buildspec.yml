@@ -1,0 +1,32 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 831926628412.dkr.ecr.ap-south-1.amazonaws.com
+      - REPOSITORY_URI=831926628412.dkr.ecr.ap-south-1.amazonaws.com/ekscluster
+  build:
+    commands:
+      - echo Build started on date
+      - echo Building the Docker image...
+      - docker build -t ekscluster . .
+      - docker tag ekscluster:latest 831926628412.dkr.ecr.ap-south-1.amazonaws.com/ekscluster:latest
+  post_build:
+    commands:
+      - echo Build completed on date
+      - echo Pushing the Docker images...
+      - docker push 831926628412.dkr.ecr.ap-south-1.amazonaws.com/ekscluster:latest
+      - echo Writing image definitions file...
+      - printf '[{"name":"%s","imageUri":"%s"}]' jaheda 831926628412.dkr.ecr.ap-south-1.amazonaws.com/ekscluster:latest > imagedefinitions.json
+
+   
+      - echo "Updating Kubernetes deployment..."
+      - aws eks update-kubeconfig --region ap-south-1 --name my-eks-cluster
+      - sed -i "s|node.js|831926628412.dkr.ecr.ap-south-1.amazonaws.com/ekscluster:latest|g" deploy.yml
+      - kubectl apply -f deploy.yml --validate=false
+      - echo "Deployment successful!"
+
+artifacts:
+    files: imagedefinitions.json
