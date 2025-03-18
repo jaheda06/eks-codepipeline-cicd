@@ -15,9 +15,8 @@ spec:
         app.kubernetes.io/name: app-eks-demo
     spec:
       containers:
-      - image: CONTAINER_IMAGE
-        imagePullPolicy: Always
-        name: app-eks-demo
+      - image: nginx
+        name: server
         ports:
         - containerPort: 80
  ---
