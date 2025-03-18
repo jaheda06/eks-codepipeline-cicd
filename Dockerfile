@@ -1,19 +1,11 @@
-FROM node:19.6.0-bullseye-slim
+# Use the official Nginx image from Docker Hub
+FROM nginx:latest
 
-# Create app directory
-WORKDIR /usr/src/app
+# Copy custom HTML files into the Nginx web root
+COPY index.html /usr/share/nginx/html/
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
-
-RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
-
-# Bundle app source
-COPY . .
-
+# Expose port 80 for web traffic
 EXPOSE 80
-CMD [ "node", "server.js" ]
+
+# Start Nginx when the container starts
+CMD ["nginx", "-g", "daemon off;"]
