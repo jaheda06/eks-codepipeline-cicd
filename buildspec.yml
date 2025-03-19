@@ -11,13 +11,13 @@ phases:
     commands:
       - echo Build started on date
       - echo Building the Docker image...
-      - docker build -t ekscluster . 
-      - docker tag ekscluster:latest 831926628412.dkr.ecr.ap-south-1.amazonaws.com/ekscluster:latest
+      - docker build -t jaheda-cluster .  
+      - docker tag jaheda-cluster:latest 831926628412.dkr.ecr.ap-south-1.amazonaws.com/jaheda-cluster:latest
   post_build:
     commands:
       - echo Build completed on date
       - echo Pushing the Docker images...
-      - docker push 831926628412.dkr.ecr.ap-south-1.amazonaws.com/ekscluster:latest
+      - docker push 831926628412.dkr.ecr.ap-south-1.amazonaws.com/jaheda-cluster:latest
       - echo Writing image definitions file...
       - printf '[{"name":"%s","imageUri":"%s"}]' jaheda $REPOSITORY_URI:latest > imagedefinitions.json
 
