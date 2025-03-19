@@ -23,11 +23,11 @@ phases:
       - printf '[{"name":"%s","imageUri":"%s"}]' jaheda $REPOSITORY_URI:latest > imagedefinitions.json
 
    
-      - echo "Updating Kubernetes deployment..."
+      - echo "Updating kubeconfig..."
       - aws eks update-kubeconfig --region ap-south-1 --name my-eks-cluster
-      - sed -i "s|nginx|831926628412.dkr.ecr.ap-south-1.amazonaws.com/ekscluster:latest|g" deployment.yml 
-      -  kubectl apply -f deployment.yml --validate=false
-      - echo "Deployment successful!"
-
+      - export KUBECONFIG=/root/.kube/config
+      - kubectl config view
+      - kubectl get nodes
+     - kubectl apply -f deployment.yml --validate=false
 artifacts:
     files: imagedefinitions.json
