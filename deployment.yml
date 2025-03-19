@@ -31,20 +31,3 @@ spec:
   ports:
     - port: 80
       targetPort: 80
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: aws-auth
-  namespace: kube-system
-data:
-  mapRoles: |
-    - rolearn: arn:aws:iam::831926628412:role/Node-Group-Role-for-EKS
-      username: system:node:{{EC2PrivateDNSName}}
-      groups:
-        - system:bootstrappers
-        - system:nodes
-  mapUsers: |
-    []
-  mapAccounts: |
-    []
