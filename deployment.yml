@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: eks-demo
+  name: msd
   labels:
-    app: demo
+    app: seven
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: demo
+      app: seven
   template:
     metadata:
       labels:
-        app: demo
+        app: seven
     spec:
       containers:
-        - name: demo-container
+        - name: seven-container
           image: nginx
           ports:
             - containerPort: 80
@@ -23,11 +23,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: demo-service
+  name: iris
 spec:
   type: LoadBalancer
   selector:
-    app: demo
+    app: seven
   ports:
     - port: 80
       targetPort: 80
